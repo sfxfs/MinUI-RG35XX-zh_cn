@@ -613,39 +613,39 @@ typedef struct OptionList {
 } OptionList;
 
 static char* onoff_labels[] = {
-	"Off",
-	"On",
+	"关",
+	"开",
 	NULL
 };
 static char* scaling_labels[] = {
-	"Native",
-	"Aspect",
-	"Fullscreen",
+	"原生",
+	"自适应",
+	"全屏",
 #ifdef CROP_OVERSCAN
-	"Cropped",
+	"裁切",
 #endif
 	NULL
 };
 static char* effect_labels[] = {
-	"None",
-	"Line",
-	"Grid",
+	"无",
+	"线条",
+	"网格",
 	NULL
 };
 static char* sharpness_labels[] = {
-	"Sharp",
-	"Crisp",
-	"Soft",
+	"锐化",
+	"清晰",
+	"柔和",
 	NULL
 };
 static char* tearing_labels[] = {
-	"Off",
-	"Lenient",
-	"Strict",
+	"关闭",
+	"宽容",
+	"严格",
 	NULL
 };
 static char* max_ff_labels[] = {
-	"None",
+	"无",
 	"2x",
 	"3x",
 	"4x",
@@ -793,15 +793,15 @@ static char* button_labels[] = {
 	NULL,
 };
 static char* overclock_labels[] = {
-	"Powersave",
-	"Normal",
-	"Performance",
+	"省电",
+	"普通",
+	"性能",
 	NULL,
 };
 
 // TODO: this should be provided by the core
 static char* gamepad_labels[] = {
-	"Standard",
+	"标准",
 	"DualShock",
 	NULL,
 };
@@ -833,11 +833,11 @@ static struct Config {
 		.options = (Option[]){
 			[FE_OPT_SCALING] = {
 				.key	= "minarch_screen_scaling", 
-				.name	= "Screen Scaling",
+				.name	= "画面比例",
 #ifdef CROP_OVERSCAN
-				.desc	= "Native uses integer scaling. Aspect uses core\nreported aspect ratio. Fullscreen has non-square\npixels. Cropped is integer scaled then cropped.",
+				.desc	= "原生 使用整数缩放. 自适应 根据\n屏幕比例缩放. 全屏 使用非正方形\n的像素. 裁切 进行整数缩放后裁切.",
 #else
-				.desc	= "Native uses integer scaling.\nAspect uses core reported aspect ratio.\nFullscreen has non-squarepixels.",
+				.desc	= "原生 使用整数缩放. 自适应 根据\n屏幕比例缩放. 全屏 使用非正方形\n的像素.",
 #endif
 				.default_value = 1,
 				.value = 1,
@@ -847,8 +847,8 @@ static struct Config {
 			},
 			[FE_OPT_EFFECT] = {
 				.key	= "minarch_screen_effect",
-				.name	= "Screen Effect",
-				.desc	= "Grid simulates an LCD grid.\nLine simulates CRT scanlines.\nEffects usually look best at native scaling.",
+				.name	= "画面效果",
+				.desc	= "网格 模拟 LCD 网格.\n线条 模拟 CRT 扫描线.\n一般情况下 原生 的效果最好.",
 				.default_value = 0,
 				.value = 0,
 				.count = 3,
@@ -857,8 +857,8 @@ static struct Config {
 			},
 			[FE_OPT_SHARPNESS] = {
 				.key	= "minarch_screen_sharpness",
-				.name	= "Screen Sharpness",
-				.desc	= "Sharp uses nearest neighbor sampling.\nCrisp integer upscales before linear sampling.\nSoft uses linear sampling.",
+				.name	= "画面锐化",
+				.desc	= "锐化 使用最近邻插值.\n清晰 整数放大后线性采样.\n柔和 使用线性采样.",
 				.default_value = 2,
 				.value = 2,
 				.count = 3,
@@ -867,8 +867,8 @@ static struct Config {
 			},
 			[FE_OPT_TEARING] = {
 				.key	= "minarch_prevent_tearing",
-				.name	= "Prevent Tearing",
-				.desc	= "Wait for vsync before drawing the next frame.\nLenient only waits when within frame budget.\nStrict always waits.",
+				.name	= "防撕裂",
+				.desc	= "在绘制下一帧之前等待垂直同步.\n宽容 只在帧预算内时等待.\n严格 总是等待.",
 				.default_value = VSYNC_LENIENT,
 				.value = VSYNC_LENIENT,
 				.count = 3,
@@ -877,8 +877,8 @@ static struct Config {
 			},
 			[FE_OPT_OVERCLOCK] = {
 				.key	= "minarch_cpu_speed",
-				.name	= "CPU Speed",
-				.desc	= "Over- or underclock the CPU to prioritize\npure performance or power savings.",
+				.name	= "处理器速度",
+				.desc	= "对处理器进行超频或者降频使其\n倾向于高性能或者更加省电.",
 				.default_value = 1,
 				.value = 1,
 				.count = 3,
@@ -887,8 +887,8 @@ static struct Config {
 			},
 			[FE_OPT_THREAD] = {
 				.key	= "minarch_thread_video",
-				.name	= "Thread Core",
-				.desc	= "Move emulation to a thread.\nPrevents audio crackle but may\ncause dropped frames.",
+				.name	= "多线程执行",
+				.desc	= "由单独线程执行模拟.\n可以防止爆音但\n可能导致丢帧.",
 				.default_value = 0,
 				.value = 0,
 				.count = 2,
@@ -897,8 +897,8 @@ static struct Config {
 			},
 			[FE_OPT_DEBUG] = {
 				.key	= "minarch_debug_hud",
-				.name	= "Debug HUD",
-				.desc	= "Show frames per second, cpu load,\nresolution, and scaler information.",
+				.name	= "调试信息",
+				.desc	= "显示帧率, 处理器负载,\n分辨率, 以及缩放的相关信息.",
 				.default_value = 0,
 				.value = 0,
 				.count = 2,
@@ -907,8 +907,8 @@ static struct Config {
 			},
 			[FE_OPT_MAXFF] = {
 				.key	= "minarch_max_ff_speed",
-				.name	= "Max FF Speed",
-				.desc	= "Fast forward will not exceed the\nselected speed (but may be less\ndepending on game and emulator).",
+				.name	= "最大快进速度",
+				.desc	= "最大快进速度\n不会超过该值(取决于\n游戏或者模拟器).",
 				.default_value = 3, // 4x
 				.value = 3, // 4x
 				.count = 8,
@@ -926,14 +926,14 @@ static struct Config {
 	},
 	.controls = default_button_mapping,
 	.shortcuts = (ButtonMapping[]){
-		[SHORTCUT_SAVE_STATE]			= {"Save State",		-1, BTN_ID_NONE, 0},
-		[SHORTCUT_LOAD_STATE]			= {"Load State",		-1, BTN_ID_NONE, 0},
-		[SHORTCUT_RESET_GAME]			= {"Reset Game",		-1, BTN_ID_NONE, 0},
-		[SHORTCUT_SAVE_QUIT]			= {"Save & Quit",		-1, BTN_ID_NONE, 0},
-		[SHORTCUT_CYCLE_SCALE]			= {"Cycle Scaling",		-1, BTN_ID_NONE, 0},
-		[SHORTCUT_CYCLE_EFFECT]			= {"Cycle Effect",		-1, BTN_ID_NONE, 0},
-		[SHORTCUT_TOGGLE_FF]			= {"Toggle FF",			-1, BTN_ID_NONE, 0},
-		[SHORTCUT_HOLD_FF]				= {"Hold FF",			-1, BTN_ID_NONE, 0},
+		[SHORTCUT_SAVE_STATE]			= {"保存状态",		-1, BTN_ID_NONE, 0},
+		[SHORTCUT_LOAD_STATE]			= {"加载状态",		-1, BTN_ID_NONE, 0},
+		[SHORTCUT_RESET_GAME]			= {"重置游戏",		-1, BTN_ID_NONE, 0},
+		[SHORTCUT_SAVE_QUIT]			= {"保存并退出",		-1, BTN_ID_NONE, 0},
+		[SHORTCUT_CYCLE_SCALE]			= {"循环缩放",		-1, BTN_ID_NONE, 0},
+		[SHORTCUT_CYCLE_EFFECT]			= {"循环效果",		-1, BTN_ID_NONE, 0},
+		[SHORTCUT_TOGGLE_FF]			= {"触发加速",			-1, BTN_ID_NONE, 0},
+		[SHORTCUT_HOLD_FF]				= {"保持加速",			-1, BTN_ID_NONE, 0},
 		{NULL}
 	},
 };
@@ -2925,11 +2925,11 @@ static struct {
 	.preview_exists = 0,
 	
 	.items = {
-		[ITEM_CONT] = "Continue",
-		[ITEM_SAVE] = "Save",
-		[ITEM_LOAD] = "Load",
-		[ITEM_OPTS] = "Options",
-		[ITEM_QUIT] = "Quit",
+		[ITEM_CONT] = "继续",
+		[ITEM_SAVE] = "保存",
+		[ITEM_LOAD] = "加载",
+		[ITEM_OPTS] = "选项",
+		[ITEM_QUIT] = "退出",
 	}
 };
 
@@ -3131,7 +3131,7 @@ static int OptionEmulator_optionChanged(MenuList* list, int i) {
 static int OptionEmulator_optionDetail(MenuList* list, int i) {
 	MenuItem* item = &list->items[i];
 	Option* option = OptionList_getOption(&config.core, item->key);
-	if (option->full) return Menu_message(option->full, (char*[]){ "B","BACK", NULL });
+	if (option->full) return Menu_message(option->full, (char*[]){ "B","返回", NULL });
 	else return MENU_CALLBACK_NOP;
 }
 static MenuList OptionEmulator_menu = {
@@ -3183,7 +3183,7 @@ static int OptionEmulator_openMenu(MenuList* list, int i) {
 		Menu_options(&OptionEmulator_menu);
 	}
 	else {
-		Menu_message("This core has no options.", (char*[]){ "B","BACK", NULL });
+		Menu_message("这个核心没有选项.", (char*[]){ "B","返回", NULL });
 	}
 	
 	return MENU_CALLBACK_NOP;
@@ -3245,8 +3245,8 @@ static int OptionControls_optionChanged(MenuList* list, int i) {
 }
 static MenuList OptionControls_menu = {
 	.type = MENU_INPUT,
-	.desc = "Press A to set and X to clear."
-		"\nSupports single button and MENU+button." // TODO: not supported on nano because POWER doubles as MENU
+	.desc = "按下 A 来设置 或 X 来清除."
+		"\n支持单个按键 以及 MENU+按键 组合." // TODO: not supported on nano because POWER doubles as MENU
 	,
 	.on_confirm = OptionControls_bind,
 	.on_change = OptionControls_unbind,
@@ -3263,8 +3263,8 @@ static int OptionControls_openMenu(MenuList* list, int i) {
 		
 		if (has_custom_controllers) {
 			MenuItem* item = &OptionControls_menu.items[k++];
-			item->name = "Controller";
-			item->desc = "Select the type of controller.";
+			item->name = "控制器";
+			item->desc = "选择一个控制器的类型.";
 			item->value = gamepad_type;
 			item->values = gamepad_labels;
 			item->on_change = OptionControls_optionChanged;
@@ -3344,8 +3344,8 @@ static int OptionShortcuts_unbind(MenuList* list, int i) {
 }
 static MenuList OptionShortcuts_menu = {
 	.type = MENU_INPUT,
-	.desc = "Press A to set and X to clear." 
-		"\nSupports single button and MENU+button." // TODO: not supported on nano because POWER doubles as MENU
+	.desc = "按下 A 来设置 或 X 来清除." 
+		"\n支持单个按键 以及 MENU+按键 组合." // TODO: not supported on nano because POWER doubles as MENU
 	,
 	.on_confirm = OptionShortcuts_bind,
 	.on_change = OptionShortcuts_unbind,
@@ -3353,9 +3353,9 @@ static MenuList OptionShortcuts_menu = {
 };
 static char* getSaveDesc(void) {
 	switch (config.loaded) {
-		case CONFIG_NONE:		return "Using defaults."; break;
-		case CONFIG_CONSOLE:	return "Using console config."; break;
-		case CONFIG_GAME:		return "Using game config."; break;
+		case CONFIG_NONE:		return "使用默认."; break;
+		case CONFIG_CONSOLE:	return "使用主机设定."; break;
+		case CONFIG_GAME:		return "使用游戏设定."; break;
 	}
 	return NULL;
 }
@@ -3393,22 +3393,22 @@ static int OptionSaveChanges_onConfirm(MenuList* list, int i) {
 	switch (i) {
 		case 0: {
 			Config_write(CONFIG_WRITE_ALL);
-			message = "Saved for console.";
+			message = "保存适用主机.";
 			break;
 		}
 		case 1: {
 			Config_write(CONFIG_WRITE_GAME);
-			message = "Saved for game.";
+			message = "保存适用游戏.";
 			break;
 		}
 		default: {
 			Config_restore();
-			if (config.loaded) message = "Restored console defaults.";
-			else message = "Restored defaults.";
+			if (config.loaded) message = "恢复主机默认.";
+			else message = "恢复默认.";
 			break;
 		}
 	}
-	Menu_message(message, (char*[]){ "A","OKAY", NULL });
+	Menu_message(message, (char*[]){ "A","确定", NULL });
 	OptionSaveChanges_updateDesc();
 	return MENU_CALLBACK_EXIT;
 }
@@ -3416,9 +3416,9 @@ static MenuList OptionSaveChanges_menu = {
 	.type = MENU_LIST,
 	.on_confirm = OptionSaveChanges_onConfirm,
 	.items = (MenuItem[]){
-		{"Save for console"},
-		{"Save for game"},
-		{"Restore defaults"},
+		{"保存适用主机"},
+		{"保存适用游戏"},
+		{"恢复默认"},
 		{NULL},
 	}
 };
@@ -3437,11 +3437,11 @@ static int OptionQuicksave_onConfirm(MenuList* list, int i) {
 static MenuList options_menu = {
 	.type = MENU_LIST,
 	.items = (MenuItem[]) {
-		{"Frontend", "MinUI (" BUILD_DATE " " BUILD_HASH ")",.on_confirm=OptionFrontend_openMenu},
-		{"Emulator",.on_confirm=OptionEmulator_openMenu},
-		{"Controls",.on_confirm=OptionControls_openMenu},
-		{"Shortcuts",.on_confirm=OptionShortcuts_openMenu}, 
-		{"Save Changes",.on_confirm=OptionSaveChanges_openMenu},
+		{"前端", "MinUI (" BUILD_DATE " " BUILD_HASH ") trans. by sfxfs",.on_confirm=OptionFrontend_openMenu},
+		{"模拟器",.on_confirm=OptionEmulator_openMenu},
+		{"控制",.on_confirm=OptionControls_openMenu},
+		{"快捷键",.on_confirm=OptionShortcuts_openMenu}, 
+		{"保存更改",.on_confirm=OptionSaveChanges_openMenu},
 		{NULL},
 		{NULL},
 		{NULL},
@@ -4296,8 +4296,8 @@ static void Menu_loop(void) {
 			SDL_FreeSurface(text);
 			
 			if (show_setting && !GetHDMI()) GFX_blitHardwareHints(screen, show_setting);
-			else GFX_blitButtonGroup((char*[]){ BTN_SLEEP==BTN_POWER?"POWER":"MENU","SLEEP", NULL }, 0, screen, 0);
-			GFX_blitButtonGroup((char*[]){ "B","BACK", "A","OKAY", NULL }, 1, screen, 1);
+			else GFX_blitButtonGroup((char*[]){ BTN_SLEEP==BTN_POWER?"电源":"菜单","休眠", NULL }, 0, screen, 0);
+			GFX_blitButtonGroup((char*[]){ "B","返回", "A","确定", NULL }, 1, screen, 1);
 			
 			// list
 			oy = (((DEVICE_HEIGHT / FIXED_SCALE) - PADDING * 2) - (MENU_ITEM_COUNT * PILL_SIZE)) / 2;
